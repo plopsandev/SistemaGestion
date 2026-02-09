@@ -1,0 +1,99 @@
+﻿@model AdministracionHospital.Models.CitasModel
+
+@{
+    ViewBag.Title = "RegistrarCita";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid text-center">
+    <h2><strong>Formulario para Agendar Cita</strong></h2>
+    @Html.ActionLink("Agenda de Citas", "Index", null, new { @class = "btn btn-primary" })
+</div>
+
+<div class="row m-5">
+    <div class="col-md-8 col-md-offset-2">
+
+        <div class="well">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4 class="text-center"><strong>Detalles de la Cita</strong></h4>
+                    <hr />
+                    
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ID_Cita, "Código Cita", new { @class = "control-label col-md-3" }) 
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.ID_Cita, new { htmlAttributes = new { @class = "form-control", placeholder = "Ej: 1001"} })
+                            @Html.ValidationMessageFor(model => model.ID_Cita, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Fecha, new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.Fecha, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                            @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Hora, new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @* El tipo 'time' es ideal para capturar la hora *@
+                            @Html.EditorFor(model => model.Hora, new { htmlAttributes = new { @class = "form-control", type = "time" } })
+                            @Html.ValidationMessageFor(model => model.Hora, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    
+                    <hr/>
+                    <h4 class="text-center"><strong>Asignación</strong></h4>
+                    <hr/>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ID_Paciente, "Paciente", new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.DropDownList("ID_Paciente", (IEnumerable<SelectListItem>)ViewBag.ID_Paciente, "-- Seleccione Paciente --", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ID_Paciente, "Seleccione Paciente", new { @class = "text-info" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ID_Medico, "Médico", new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.DropDownList("ID_Medico", (IEnumerable<SelectListItem>)ViewBag.ID_Medico, "-- Seleccione Médico --", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ID_Medico, "Seleccione Médico", new { @class = "text-info" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ID_Hospital, "Hospital", new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.DropDownList("ID_Hospital", (IEnumerable<SelectListItem>)ViewBag.ID_Hospital, "-- Seleccione Hospital --", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ID_Hospital, "Seleccione Hospital", new { @class = "text-info" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ID_Diagnostico, "Diagnóstico", new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.DropDownList("ID_Diagnostico", (IEnumerable<SelectListItem>)ViewBag.ID_Diagnostico, "-- Seleccione Diagnóstico --", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ID_Diagnostico, "Seleccione Diagnóstico", new { @class = "text-info" })
+                        </div>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <div class="col-md-offset-3 col-md-9">
+                            <input type="submit" value="Programar Cita" class="btn btn-success" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

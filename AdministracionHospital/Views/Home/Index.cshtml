@@ -1,0 +1,90 @@
+﻿@using AdministracionHospital.Models
+@model PacientesModel
+
+@{
+    ViewBag.Title = "Inicio";
+}
+
+<div class="container-fluid bg-primary p-4 mb-4 rounded-3 text-center">
+    <h1>Sistema de Gestión de Hospitales</h1>
+</div>
+
+<hr />
+
+<div class="container-fluid bg-light p-4 border mb-4 rounded-3">
+    <div class="row">
+        <div class="col-12">
+            <p class="fs-5 p-4 text-center">
+                Este sistema integral está diseñado para optimizar las operaciones diarias de su centro de salud. Permite la gestión centralizada de la información clave, garantizando 
+                <strong>eficiencia, precisión y seguridad</strong> en la atención al paciente y la administración de recursos.
+            </p>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<div class="container-fluid mb-4">
+    <div class="row">
+        <div class="col text-center">
+            <p><strong>Gestiones que puede realizar:</strong></p>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <div class="card hospital-card text-center shadow-lg h-100 border-3">
+                <img src="~/Content/img/Pacientes.png" class="card-img-top img-fluid" style="object-fit: cover; height: 180px;">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title p-4"><strong>Gestión de Expedientes</strong></h5>
+                    <div class="text-center">
+                        <p class="card-text">
+                            Utilice esta sección para <strong>registrar nuevos pacientes</strong>, actualizar su información para poder realizar operaciones como <strong>Agendar Citas</strong>
+                        </p>
+                    </div>
+                    <div class="p-4">
+                        @Html.ActionLink("Pacientes", "Index", "Pacientes", null, new { @class = "btn btn-success" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card hospital-card text-center shadow-lg h-100 border-3">
+                <img src="~/Content/img/Inventario.png" class="card-img-top img-fluid" style="object-fit: cover; height: 180px;">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title p-4"><strong>Consulta de Recursos</strong></h5>
+                    <div class="text-center">
+                        <p class="card-text">
+                            Consulte la disponibilidad de <strong>inventario</strong> por cada hospital, verificando la cantidad en <strong>Stock de medicamentos</strong>.
+                        </p>
+                    </div>
+                    <div class="p-4">
+                        @Html.ActionLink("Inventarios", "Inventario", "Hospital", null, new { @class = "btn btn-primary" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card hospital-card text-center shadow-lg h-100 border-3">
+                <img src="~/Content/img/Historiales.png" class="card-img-top img-fluid" style="object-fit: cover; height: 180px;">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title p-4"><strong>Historiales</strong></h5>
+                    <div class="text-center">
+                        <p class="card-text">
+                            Consulte los <strong>Historiales Médicos</strong> de los pacientes donde se muestra toda la información con solo digitar su <strong>número de cédula</strong>.
+                        </p>
+                    </div>
+                    <div class="p-4">
+                        @Html.ActionLink("Historiales Medicos", "Details", "Pacientes", null, new { @class = "btn btn-info" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

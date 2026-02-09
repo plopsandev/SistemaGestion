@@ -1,0 +1,57 @@
+﻿@model IEnumerable<AdministracionHospital.Models.MedicosModel>
+
+@{
+    ViewBag.Title = "Médicos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid text-right">
+    <p>
+        <h2 class="text-justify"><strong>Médicos Registrados</strong></h2>
+
+        @Html.ActionLink("Registrar Médico", "Create", null, new { @class = "btn btn-primary" })
+
+        @Html.ActionLink("Cargar Lista", "Details", new { cargardatos = true }, new { @class = "btn btn-success" })
+    </p>
+</div>
+
+<table class="table table-striped table-hover m-5">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.First().ID_Medico)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Nombre_Medico)</th>
+            <th>Teléfono</th>
+            <th>Correo Electrónico</th>
+            <th>Hospital</th>
+            <th>Especialidad</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.ID_Medico)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Nombre_Medico)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Telefono_Medico)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Correo_Electronico)</td>
+
+                    <td>@Html.DisplayFor(modelItem => item.Hospital.Nombre_Hospital)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Especialidad.Nombre_Especialidad)</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="7" style="text-align: center;">Presione <strong>"Cargar Lista"</strong> para ver los datos.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

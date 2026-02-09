@@ -1,0 +1,49 @@
+﻿@model IEnumerable<AdministracionHospital.Models.HospitalesModel>
+
+@{
+    ViewBag.Title = "Hospitales";
+}
+
+<div class="container-fluid text-right">
+    <p>
+        <h2 class="text-justify"><strong>Centros Hospitalarios Registrados en el Sistema</strong></h2>
+
+        @Html.ActionLink("Registrar Hospital", "Create", null, new { @class = "btn btn-primary" })
+
+        @Html.ActionLink("Cargar Lista", "Index", new { cargarDatos = true }, new { @class = "btn btn-success" })
+
+        
+    </p>
+</div>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.ID_Hospital)</th>
+            <th>@Html.DisplayNameFor(model => model.Nombre_Hospital)</th>
+            <th>@Html.DisplayNameFor(model => model.Direccion_Hospital)</th>
+            <th>@Html.DisplayNameFor(model => model.Telefono_Hospital)</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.ID_Hospital)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Nombre_Hospital)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Direccion_Hospital)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Telefono_Hospital)</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="8" style="text-align: center;">Presione <strong>"Cargar Lista"</strong> para ver los datos.</td>
+            </tr>
+        }
+    </tbody>
+</table>

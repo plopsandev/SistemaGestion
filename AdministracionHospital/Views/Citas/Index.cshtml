@@ -1,0 +1,58 @@
+﻿@model IEnumerable<AdministracionHospital.Models.CitasModel>
+
+@{
+    ViewBag.Title = "Citas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container-fluid text-right">
+    <p>
+        <h2 class="text-justify"><strong>Agendas de Citas</strong></h2>
+
+        @Html.ActionLink("Agendar Cita", "Create", null, new { @class = "btn btn-primary" })
+
+        @Html.ActionLink("Cargar Agenda", "Index", new { cargarDatos = true }, new { @class = "btn btn-success" })
+
+
+        @Html.ActionLink("Actualizar Citas", "ActualizarDisponibilidadCitas", new { cargarDatos = true }, new { @class = "btn btn-warning" })
+    </p>
+</div>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.ID_Cita)</th>
+            <th>@Html.DisplayNameFor(model => model.Fecha)</th>
+            <th>@Html.DisplayNameFor(model => model.Hora)</th>
+            <th>@Html.DisplayNameFor(model => model.ID_Medico)</th>
+            <th>@Html.DisplayNameFor(model => model.ID_Paciente)</th>
+            <th>@Html.DisplayNameFor(model => model.ID_Hospital)</th>
+            <th>@Html.DisplayNameFor(model => model.ID_Diagnostico)</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.ID_Cita)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Fecha)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Hora)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Medico.Nombre_Medico)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Paciente.Nombre_Paciente)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Hospital.Nombre_Hospital)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Diagnostico.Descripcion)</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="8" style="text-align: center;">Presione <strong>"Cargar Lista"</strong> para ver los datos.</td>
+            </tr>
+        }
+    </tbody>
+</table>

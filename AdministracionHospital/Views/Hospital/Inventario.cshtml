@@ -1,0 +1,87 @@
+﻿@model List<AdministracionHospital.Models.InventarioModel>
+
+@{
+    ViewBag.Title = "Inventario de Medicamentos";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+
+            <h2><strong>Inventario Hospitalario - Últimos 30 Días</strong></h2>
+            <hr />
+
+            <form method="GET" action="@Url.Action("Inventario")" class="mb-4">
+                <div class="form-row align-items-end">
+                    <div class="col-md-5 col-sm-8">
+                        <label for="NombreHospital">Nombre del Hospital:</label>
+                        <input type="text"
+                               class="form-control"
+                               id="NombreHospital"
+                               name="NombreHospital"
+                               placeholder="Ej: Hospital San Juan de Dios">
+                    </div>
+                    <div class="col-auto mt-1 mt-md-0">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-search"></i> Consultar Inventario
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <hr />
+
+            @if (!string.IsNullOrWhiteSpace(ViewBag.NombreHospitalActual))
+            {
+                <h3 class="bg-primary text-center p-4"><strong>Inventario</strong></h3>
+            }
+
+            @if (Model != null && Model.Any())
+            {
+                <table class="table table-striped table-hover mt-3 bg-info">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.First().Hospital)</th>
+                            <th>@Html.DisplayNameFor(model => model.First().Medicamento)</th>
+                            <th class="text-center">@Html.DisplayNameFor(model => model.First().Cantidad_Prescripciones)</th>
+                            <th class="text-center">@Html.DisplayNameFor(model => model.First().Inventario_Actual)</th>
+                            <th class="bg-warning text-center">Alertas de Inventario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.Hospital)</td>
+                                <td><strong>@Html.DisplayFor(modelItem => item.Medicamento)</strong></td>
+                                <td class="text-center">@Html.DisplayFor(modelItem => item.Cantidad_Prescripciones)</td>
+                                <td class="text-center">
+                                    @Html.DisplayFor(modelItem => item.Inventario_Actual)
+                                <td class="text-center">
+                                    @if (item.Inventario_Actual <= 400)
+                                    {
+                                        <span>¡Inventario Bajo!</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="alert alert-warning mt-4" role="alert">
+                    <h4 class="alert-heading"><strong>Sin Datos</strong></h4>
+                    @if (!string.IsNullOrWhiteSpace(ViewBag.NombreHospitalActual))
+                    {
+                        <p>No se encontraron registros de inventario o medicamentos para el hospital <strong>@ViewBag.NombreHospitalActual</strong> en los últimos 30 días.</p>
+                    }
+                    else
+                    {
+                        <p>Ingrese el nombre de un hospital y presione <strong>"Consultar"</strong> para ver el inventario.</p>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

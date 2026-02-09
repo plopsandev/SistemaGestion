@@ -1,0 +1,55 @@
+﻿@model AdministracionHospital.Models.PrescripcionesModel
+
+@{
+    ViewBag.Title = "RealizarPrescripciones";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid text-center">
+    <h2><strong>Formulario de Prescripciones</strong></h2>
+</div>
+
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+
+        <div class="well">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4 class="text-center"><strong>Datos de la Prescripción</strong></h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ID_Prescripcion, "ID Prescripción", new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.ID_Prescripcion, new { htmlAttributes = new { @class = "form-control", placeholder = "Número de ID de Prescripción" } })
+                            @Html.ValidationMessageFor(model => model.ID_Prescripcion, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ID_Medicamento, "ID Medicamento", new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.DropDownList("ID_Medicamento", (IEnumerable<SelectListItem>)ViewBag.ID_Medicamento, "", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ID_Medicamento, "Seleccione Medicamento", new { @class = "text-info" })
+                        </div>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <div class="col-md-offset-3 col-md-9">
+                            <input type="submit" value="Realizar Prescripción" class="btn btn-success" />
+                            @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-danger" })
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

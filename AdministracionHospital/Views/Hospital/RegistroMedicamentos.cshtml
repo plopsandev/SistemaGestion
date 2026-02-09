@@ -1,0 +1,70 @@
+﻿@model AdministracionHospital.Models.MedicamentosModel
+@{
+    ViewBag.Title = "RegistroMedicamentos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid text-center">
+    <h2><strong>Formulario de Registro de Medicamentos</strong></h2>
+</div>
+
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+
+        <div class="well">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4 class="text-center"><strong>Datos del Medicamento</strong></h4>
+                    <hr />
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ID_Medicamento, "ID Medicamento", new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.ID_Medicamento, new { htmlAttributes = new { @class = "form-control", placeholder = "Número de ID" } })
+                            @Html.ValidationMessageFor(model => model.ID_Medicamento, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Nombre_Medicamento, "Nombre del Medicamento", new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.Nombre_Medicamento, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Nombre_Medicamento, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                   
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Descripcion_Medic, "Descripción", new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.TextAreaFor(model => model.Descripcion_Medic, new { @class = "form-control", rows = 3, placeholder = "Breve descripción del medicamento" })
+                            @Html.ValidationMessageFor(model => model.Descripcion_Medic, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Costo_Unidad, "Costo por Unidad", new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.Costo_Unidad, new { htmlAttributes = new { @class = "form-control", placeholder = "Costo" } })
+                            @Html.ValidationMessageFor(model => model.Costo_Unidad, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <div class="col-md-offset-3 col-md-9">
+                            <input type="submit" value="Registrar Medicamento" class="btn btn-success" />
+                            @Html.ActionLink("Volver", "Index", "Home", new { @class = "btn btn-danger" })
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

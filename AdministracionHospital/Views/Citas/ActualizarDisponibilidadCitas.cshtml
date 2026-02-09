@@ -1,0 +1,122 @@
+﻿@model List<AdministracionHospital.Models.CitasModel> 
+
+@{
+    ViewBag.Title = "Actualizar Cita y Disponibilidad";
+    Layout = "~/Views/Shared/_Layout.cshtml"; 
+
+    var citaActual = Model != null && Model.Count > 0 ? Model.FirstOrDefault() : new AdministracionHospital.Models.CitasModel();
+}
+
+<div class="container mt-4">
+    <h2 class="text-center bg-primary p-4"><strong>Formulario para Actualización de Cita</strong></h2>
+
+    <hr />
+
+    @using (Html.BeginForm("ActualizarDisponibilidadCitas", "Citas", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+    {
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            
+            <div class="form-group row mb-3">
+                @Html.LabelFor(model => Model.FirstOrDefault().ID_Cita, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    <input type="number"
+                           name="ID_Cita"
+                           id="ID_Cita"
+                           class="form-control"
+                           value="@citaActual.ID_Cita"
+                           required />
+                </div>
+            </div>
+            
+            <hr/>
+
+            <div class="form-group row mb-3">
+                @Html.LabelFor(model => Model.FirstOrDefault().Fecha, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    <input type="date" 
+                           name="Fecha" 
+                           id="Fecha" 
+                           class="form-control" 
+                           value="@(citaActual.Fecha.HasValue ? citaActual.Fecha.Value.ToString("yyyy-MM-dd") : "")" 
+                           required />
+                    @Html.ValidationMessageFor(model => Model.FirstOrDefault().Fecha, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                @Html.LabelFor(model => Model.FirstOrDefault().Hora, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    <input type="time" 
+                           name="Hora" 
+                           id="Hora" 
+                           class="form-control" 
+                           value="@(citaActual.Hora.HasValue ? citaActual.Hora.Value.ToString(@"hh\:mm") : "")" 
+                           required />
+                    @Html.ValidationMessageFor(model => Model.FirstOrDefault().Hora, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                @Html.Label("Médico", htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    @Html.DropDownList("ID_Medico", ViewBag.ID_Medico as IEnumerable<SelectListItem>, "Seleccione Médico ", new { @class = "form-control", @required = "required" })
+                    @Html.ValidationMessageFor(model => Model.FirstOrDefault().ID_Medico, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            
+            <div class="form-group row mb-3">
+                @Html.Label("Paciente", htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    @Html.DropDownList("ID_Paciente", ViewBag.ID_Paciente as IEnumerable<SelectListItem>, "Seleccione Paciente", new { @class = "form-control", @required = "required" })
+                    @Html.ValidationMessageFor(model => Model.FirstOrDefault().ID_Paciente, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                @Html.Label("Hospital", htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    @Html.DropDownList("ID_Hospital", ViewBag.ID_Hospital as IEnumerable<SelectListItem>, "Seleccione Hospital", new { @class = "form-control", @required = "required" })
+                    @Html.ValidationMessageFor(model => Model.FirstOrDefault().ID_Hospital, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                @Html.Label("Diagnóstico", htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    @Html.DropDownList("ID_Diagnostico", ViewBag.ID_Diagnostico as IEnumerable<SelectListItem>, "Seleccione Diagnóstico", new { @class = "form-control", @required = "required" })
+                    @Html.ValidationMessageFor(model => Model.FirstOrDefault().ID_Diagnostico, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row mt-4">
+                <div class="col-md-offset-3 col-md-9">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> Verificar disponibilidad
+                    </button>
+                    @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-secondary ml-2" }, new { @class = "btn btn-danger" })
+                </div>
+            </div>
+        </div>
+    }
+    
+    <hr/>
+    
+    @if (Model != null && Model.Count > 0)
+    {
+        <div class="alert alert-success mt-3">
+            <strong>¡Cita Registrada/Actualizada exitosamente!</strong>
+        </div>
+    }
+    else if (ViewBag.ID_Cita != null && Model != null && Model.Count == 0)
+    {
+        <div class="alert alert-warning mt-3">
+            <strong>Aviso de Procesamiento:</strong> El médico podría no estar disponible a la hora y fecha especificadas. Por favor, verifique la agenda.
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

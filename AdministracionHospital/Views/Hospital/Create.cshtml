@@ -1,0 +1,70 @@
+﻿@model AdministracionHospital.Models.HospitalesModel
+@{
+    ViewBag.Title = "RegistrarHospital";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid text-center">
+    <h2><strong>Formulario de Registro de Hospitales</strong></h2>
+</div>
+
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+
+        <div class="well">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4 class="text-center"><strong>Datos del Hospital</strong></h4>
+                    <hr />
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ID_Hospital, "ID Hospital", new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.ID_Hospital, new { htmlAttributes = new { @class = "form-control", placeholder = "Número de ID" } })
+                            @Html.ValidationMessageFor(model => model.ID_Hospital, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Nombre_Hospital, "Nombre del Hospital", new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.Nombre_Hospital, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Nombre_Hospital, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Direccion_Hospital, "Dirección", new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.Direccion_Hospital, new { htmlAttributes = new { @class = "form-control", placeholder = "Provincia, Canton, Distrito" } })
+                            @Html.ValidationMessageFor(model => model.Direccion_Hospital, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Telefono_Hospital, "Teléfono", new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.Telefono_Hospital, new { htmlAttributes = new { @class = "form-control", placeholder = "Formato: xxxx-xxxx" } })
+                            @Html.ValidationMessageFor(model => model.Telefono_Hospital, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <div class="col-md-offset-3 col-md-9">
+                            <input type="submit" value="Registrar" class="btn btn-success" />
+
+                            @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-danger" })
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
