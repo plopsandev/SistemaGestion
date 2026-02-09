@@ -66,4 +66,3 @@ Una solución integral diseñada para optimizar la administración de servicios 
 
 ```
 
-¿Te gustaría que generara también una **imagen o banner personalizado** para colocar en la parte superior de tu README?
